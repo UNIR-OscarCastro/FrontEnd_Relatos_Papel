@@ -1,0 +1,25 @@
+{
+  "name": "frontend_relatos_papel",
+  "version": "1.0.0",
+  "description": "Front end Creado en react para Proyecto transversal Relatos de papel - MISSI Unir 2025-2026 branch jz",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "react": "^19.2.3",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^6.4.1"
+  }
+}
