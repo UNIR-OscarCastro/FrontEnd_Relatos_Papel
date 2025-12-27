@@ -1,7 +1,6 @@
 import { Container } from 'react-bootstrap';
 import UserListView from '../views/UserListView'; 
 import BannerListView from '../views/BannerListView';
-import Footer from "../components/Footer";
 import SearchBar from "../components/search/SearchBar";
 import ProductGrid from "../components/products/ProductGrid";
 import PaginationControl from "../components/common/PaginationControl";
@@ -30,23 +29,16 @@ const HomePage = () => {
 
   return (
     <>
-      <div style={{ flex: '1 0 auto' }}>
-        <Container className="py-4">
-          <header className="mb-5 text-center">
-            <h1>Bienvenido a tu librería Digital</h1>
-            <p className="lead">Descubre miles de libros físicos y digitales.</p>
-          </header>
-          <BannerListView />
-          <UserListView />
-        </Container>
-      </div>
       <Container className="py-4">
         <header className="mb-4 text-center">
           <h1>Bienvenido a tu librería Digital</h1>
           <p className="lead">Descubre miles de libros físicos y digitales.</p>
         </header>
 
+        <BannerListView />
+
         <SearchBar onSearch={handleSearch} />
+
         <ProductGrid books={currentBooks} />
 
         <PaginationControl
@@ -55,6 +47,7 @@ const HomePage = () => {
           currentPage={currentPage}
           onPageChange={setCurrentPage}
         />
+        
       </Container>
     </>
   );
