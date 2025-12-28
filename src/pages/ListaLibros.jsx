@@ -1,11 +1,37 @@
-import { Container } from "react-bootstrap";
-import { useState } from "react";
-import { booksMock } from "../data/books.mock";
+import { Container, Button } from "react-bootstrap";
+import { useContext, useState } from "react";
+import { books } from "../data/database";
 import SearchBar from "../components/search/SearchBar";
 import PaginationControl from "../components/common/PaginationControl";
+import { CartContext } from "../context/CartContext";
 
 const ListaLibros = () => {
-  const categorias = [...new Set(booksMock.map(b => b.categoria))];
+  const { dispatch } = useContext(CartContext);
+  const [quantities, setQuantities] = useState({});
+
+  //  Handler para cambiar la cantidad seleccionada
+  const handleQtyChange = (bookId, value) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [bookId]: Number(value),
+    }));
+  };
+
+  // Handler para agregar al carrito
+  const handleAddToCart = (book) => {
+    const cantidad = quantities[book.id] || 1;
+
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id: book.id,
+        nombre: book.nombre,
+        cantidad,
+      },
+    });
+  };
+
+  const categorias = [...new Set(books.map((b) => b.categoria))];
 
   const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -24,10 +50,8 @@ const ListaLibros = () => {
 
   const librosFiltrados =
     categoriasSeleccionadas.length === 0
-      ? booksMock
-      : booksMock.filter((b) =>
-          categoriasSeleccionadas.includes(b.categoria)
-        );
+      ? books
+      : books.filter((b) => categoriasSeleccionadas.includes(b.categoria));
 
   const librosBuscados = librosFiltrados.filter((book) =>
     book.nombre.toLowerCase().includes(searchText.toLowerCase())
@@ -63,7 +87,9 @@ const ListaLibros = () => {
           </aside>
 
           <section style={{ flex: 1 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+            >
               {librosPaginados.map((book) => (
                 <div
                   key={book.id}
@@ -102,9 +128,7 @@ const ListaLibros = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <strong style={{ fontSize: "18px" }}>
-                      ${book.precio}
-                    </strong>
+                    <strong style={{ fontSize: "18px" }}>${book.precio}</strong>
 
                     <div style={{ margin: "8px 0" }}>
                       <label>
@@ -113,7 +137,10 @@ const ListaLibros = () => {
                           type="number"
                           min="1"
                           max={book.cantidad}
-                          defaultValue="1"
+                          value={quantities[book.id] || 1}
+                          onChange={(e) =>
+                            handleQtyChange(book.id, e.target.value)
+                          }
                           style={{ width: "60px", marginLeft: "6px" }}
                         />
                       </label>
@@ -121,6 +148,7 @@ const ListaLibros = () => {
 
                     <button
                       disabled={book.estado !== "Disponible"}
+                      onClick={() => handleAddToCart(book)}
                       style={{
                         width: "100%",
                         background:
@@ -136,6 +164,7 @@ const ListaLibros = () => {
                     >
                       Agregar al carrito
                     </button>
+                    <div className="d-flex justify-content-end mb-3"></div>
                   </div>
                 </div>
               ))}
@@ -163,4 +192,3 @@ const ListaLibros = () => {
 };
 
 export default ListaLibros;
-

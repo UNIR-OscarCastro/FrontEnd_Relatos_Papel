@@ -2,11 +2,11 @@ import { Card, Form, Button, Row, Col } from "react-bootstrap";
 
 const CheckoutForm = () => {
   return (
-    <Card className="background-light p-3">
+    <Card className="p-3 shadow-sm mb-4">
       <Card.Body>
         {/* Dirección de envío */}
         <div className="mb-3">
-          <h4><strong>Dirección de envío</strong></h4>
+          <strong>Dirección de envío</strong>
           <div className="d-flex justify-content-between">
             <span>Calle 123, abc, NY 11200</span>
             <Button variant="link" size="sm">Editar</Button>
@@ -15,7 +15,7 @@ const CheckoutForm = () => {
 
         {/* Método de envío */}
         <div className="mb-3">
-          <h4><strong>Método de envío</strong></h4>
+          <strong>Método de envío</strong>
           <div className="d-flex justify-content-between">
             <span>Entrega en puerta, $2.20</span>
             <Button variant="link" size="sm">Editar</Button>
@@ -23,7 +23,7 @@ const CheckoutForm = () => {
         </div>
 
         {/* Método de pago */}
-        <h4 className="mt-4 mb-3"><strong>Método de pago</strong></h4>
+        <h6 className="mt-4 mb-3">Método de pago</h6>
 
         <Form>
           <Form.Group className="mb-3">
