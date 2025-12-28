@@ -2,7 +2,7 @@ import { Card, Form, Button } from "react-bootstrap";
 
 const OrderSummary = () => {
   return (
-    <Card className="text-bg-secondary bg-opacity-25 p-3 shadow-lg text-dark">
+    <Card className="text-bg-secondary bg-opacity-25 p-3 shadow-md text-dark">
       <Card.Body>
         <h5 className="mb-3"><strong>Resumen (1 item)</strong></h5>
 
